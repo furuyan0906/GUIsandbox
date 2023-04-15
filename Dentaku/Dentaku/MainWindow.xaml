@@ -1,0 +1,205 @@
+﻿<Window x:Class="Dentaku.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:common="clr-namespace:Dentaku.Common"
+        xmlns:local="clr-namespace:Dentaku"
+        xmlns:vm="clr-namespace:Dentaku.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="300"
+        Loaded="Window_Loaded">
+    <Window.Resources>
+        <!-- ボタンのテキストサイズ -->
+        <system:Double x:Key="DentakuButtonFontSize">18</system:Double>
+        
+        <!-- 数式のテキスト -->
+        <system:Double x:Key="DentakuFormulaFontSize">22</system:Double>
+        
+        <!-- 通常ボタンの背景色 -->
+        <SolidColorBrush x:Key="DentakuNormalButtonBackGroundColorBrush" Color="#FF343434" />
+        
+        <!-- 通常ボタンの前景色 -->
+        <SolidColorBrush x:Key="DentakuNormalButtonForeGroundColorBrush" Color="#FFDEDEDE" />
+
+        <!-- クリアボタンの背景色 -->
+        <SolidColorBrush x:Key="DentakuClearButtonBackGroundColorBrush" Color="#FF4274EE" />
+
+        <!-- クリアボタンの前景色 -->
+        <SolidColorBrush x:Key="DentakuClearButtonForeGroundColorBrush" Color="#FFDEDEDE" />
+
+        <!-- 枠線色 -->
+        <SolidColorBrush x:Key="DentakuBorderColorBrush" Color="DarkGray" />
+
+        <!-- 数式の背景色 -->
+        <SolidColorBrush x:Key="DentakuFormulaBackGroundColorBrush" Color="White" />
+        
+        <!-- 数式の前景色 -->
+        <SolidColorBrush x:Key="DentakuFormulaForeGroundColorBrush" Color="Black" />
+
+
+        <!-- 電卓ボタンのベーススタイル -->
+        <Style TargetType="Button" x:Key="DentakuButonBaseStyle">
+            <Setter Property="FontFamily" Value="arial" />
+            <Setter Property="FontSize" Value="{StaticResource DentakuButtonFontSize}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="3" />
+                    <Setter Property="BorderThickness" Value="1.5" />
+                    <Setter Property="BorderBrush" Value="{StaticResource DentakuBorderColorBrush}" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <!-- 数字用ボタンのスタイル -->
+        <Style TargetType="Button" x:Key="DentakuValueButtonStyle" BasedOn="{StaticResource DentakuButonBaseStyle}">
+            <Setter Property="Background" Value="{StaticResource DentakuNormalButtonBackGroundColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource DentakuNormalButtonForeGroundColorBrush}" />
+            <Setter Property="Command" Value="{Binding ValueCommand}" />
+        </Style>
+        
+        <!-- 演算子用ボタン -->
+        <Style TargetType="Button" x:Key="DentakuOperatorButtonStyle" BasedOn="{StaticResource DentakuButonBaseStyle}">
+            <Setter Property="Background" Value="{StaticResource DentakuNormalButtonBackGroundColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource DentakuNormalButtonForeGroundColorBrush}" />
+            <Setter Property="Command" Value="{Binding OperatorCommand}" />
+        </Style>
+
+        <!-- 計算実行用ボタン -->
+        <Style TargetType="Button" x:Key="DentakuCalculationButtonStyle" BasedOn="{StaticResource DentakuButonBaseStyle}">
+            <Setter Property="Background" Value="{StaticResource DentakuNormalButtonBackGroundColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource DentakuNormalButtonForeGroundColorBrush}" />
+            <Setter Property="Command" Value="{Binding CalculateCommnad}" />
+        </Style>
+
+        <!-- 入力クリア用ボタン -->
+        <Style TargetType="Button" x:Key="DentakuAllClearButtonStyle" BasedOn="{StaticResource DentakuButonBaseStyle}">
+            <Setter Property="Background" Value="{StaticResource DentakuClearButtonBackGroundColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource DentakuClearButtonForeGroundColorBrush}" />
+            <Setter Property="Command" Value="{Binding AllClearCommand}" />
+        </Style>
+        
+        <!-- 数式用テキストブロックのスタイル -->
+        <Style TargetType="TextBlock" x:Key="DentakuFormulaTextBlockStyle">
+            <Setter Property="Text" Value="{Binding InfixView.Value, StringFormat={}{0}}" />
+            <Setter Property="TextAlignment" Value="Right" />
+            <Setter Property="FontFamily" Value="arial" />
+            <Setter Property="FontSize" Value="{StaticResource DentakuFormulaFontSize}" />
+            <Setter Property="Background" Value="{StaticResource DentakuFormulaBackGroundColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource DentakuFormulaForeGroundColorBrush}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="MinWidth" Value="{Binding FormulaControlSize.Width.Value}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+
+    </Window.Resources>
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+    
+    <Grid x:Name="MainGrid">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Style="{StaticResource DentakuFormulaTextBlockStyle}"
+                   Grid.ColumnSpan="4" />
+
+        <Button Grid.Row="1" Grid.Column="0"
+                Style="{StaticResource DentakuAllClearButtonStyle}"
+                Content="{Binding AllClearCommandView}" />
+        <Button Grid.Row="1" Grid.Column="1"
+                Style="{StaticResource DentakuOperatorButtonStyle}"
+                Content="{Binding Path=OperatorViews[(common:Operators)LeftBracket]}"
+                CommandParameter="{x:Static common:Operators.LeftBracket}" />
+        <Button Grid.Row="1" Grid.Column="2"
+                Style="{StaticResource DentakuOperatorButtonStyle}"
+                Content="{Binding Path=OperatorViews[(common:Operators)RightBracket]}"
+                CommandParameter="{x:Static common:Operators.RightBracket}" />
+        <Button Grid.Row="1" Grid.Column="3"
+                Style="{StaticResource DentakuOperatorButtonStyle}"
+                Content="{Binding Path=OperatorViews[(common:Operators)Residue]}"
+                CommandParameter="{x:Static common:Operators.Residue}" />
+
+        <Button Grid.Row="2" Grid.Column="0"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="7"
+                CommandParameter="7" />
+        <Button Grid.Row="2" Grid.Column="1"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="8"
+                CommandParameter="8" />
+        <Button Grid.Row="2" Grid.Column="2"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="9"
+                CommandParameter="9" />
+        <Button Grid.Row="2" Grid.Column="3"
+                Style="{StaticResource DentakuOperatorButtonStyle}"
+                Content="{Binding Path=OperatorViews[(common:Operators)Division]}"
+                CommandParameter="{x:Static common:Operators.Division}" />
+
+        <Button Grid.Row="3" Grid.Column="0"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="4"
+                CommandParameter="4" />
+        <Button Grid.Row="3" Grid.Column="1"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="5"
+                CommandParameter="5" />
+        <Button Grid.Row="3" Grid.Column="2"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="6"
+                CommandParameter="6" />
+        <Button Grid.Row="3" Grid.Column="3"
+                Style="{StaticResource DentakuOperatorButtonStyle}"
+                Content="{Binding Path=OperatorViews[(common:Operators)Multiplication]}"
+                CommandParameter="{x:Static common:Operators.Multiplication}" />
+
+        <Button Grid.Row="4" Grid.Column="0"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="1"
+                CommandParameter="1" />
+        <Button Grid.Row="4" Grid.Column="1"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="2"
+                CommandParameter="2" />
+        <Button Grid.Row="4" Grid.Column="2"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="3"
+                CommandParameter="3" />
+        <Button Grid.Row="4" Grid.Column="3"
+                Style="{StaticResource DentakuOperatorButtonStyle}"
+                Content="{Binding Path=OperatorViews[(common:Operators)Substraction]}"
+                CommandParameter="{x:Static common:Operators.Substraction}" />
+
+        <Button Grid.Row="5" Grid.Column="0"
+                Style="{StaticResource DentakuValueButtonStyle}"
+                Content="0"
+                CommandParameter="0" />
+        <Button Grid.Row="5" Grid.Column="1"
+                Grid.ColumnSpan="2"
+                Style="{StaticResource DentakuCalculationButtonStyle}"
+                Content="{Binding CalculationCommandView}" />
+        <Button Grid.Row="5" Grid.Column="3"
+                Style="{StaticResource DentakuOperatorButtonStyle}"
+                Content="{Binding Path=OperatorViews[(common:Operators)Addition]}"
+                CommandParameter="{x:Static common:Operators.Addition}" />
+    </Grid>
+</Window>

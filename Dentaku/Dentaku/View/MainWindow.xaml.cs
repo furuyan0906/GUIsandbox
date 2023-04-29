@@ -1,4 +1,4 @@
-﻿namespace Dentaku
+﻿namespace Dentaku.View
 {
     using System.Windows;
     using Dentaku.ViewModel;

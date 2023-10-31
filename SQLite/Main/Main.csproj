@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\SQLite\GUISandbox.SQLite.csproj" />
+    <ProjectReference Include="..\SQLite\SQLite.csproj" />
   </ItemGroup>
 
 </Project>

@@ -44,7 +44,7 @@ internal class SQLiteCommandFactory
     {
         tableName.ThrowArgumentExceptionIfNullOrEmptyOrWhiteSpace(nameof(tableName));
 
-        var commad = @"SELECT * FROM sqlite_master";
+        var commad = @$"SELECT * FROM {tableName}";
         return new SQLiteCommandWithQuery(commad);
     }
 
@@ -55,8 +55,9 @@ internal class SQLiteCommandFactory
         var command = $"INSERT INTO {tableName}({NameKey}, {ValueKey}, {VersionKey}) VALUES";
         foreach (var element in elements)
         {
-            command += @$" ('{element.Name}', {element.Value}, '{element.Version}')";
+            command += @$" ('{element.Name}', {element.Value}, '{element.Version}'),";
         }
+        command = command.TrimEnd(',') + ";";
                       
         return new SQLiteCommandWithoutQuery(command);
     }

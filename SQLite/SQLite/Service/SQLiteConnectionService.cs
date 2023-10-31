@@ -1,9 +1,6 @@
 ﻿using GUISandbox.SQLite.Extensions;
 using System;
 using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Diagnostics;
-using System.Text;
 
 namespace GUISandbox.SQLite.Service;
 
@@ -60,13 +57,9 @@ public class SQLiteConnectionService
         // SQLiteDataReader.Disposeメソッドを確実に呼ぶため, usingステートメントでラッピングする
         using (reader)
         {
-            var stringBuilder = new StringBuilder();
-
             while (reader.Read())
             {
                 var name = reader[SQLiteCommandFactory.NameKey]?.ToString() ?? throw new ArgumentException($"key={SQLiteCommandFactory.NameKey}");
-                stringBuilder.Append(name + "\n");
-
                 var value = reader[SQLiteCommandFactory.ValueKey]?.ToString() ?? throw new ArgumentException($"key={SQLiteCommandFactory.ValueKey}");
                 var version = reader[SQLiteCommandFactory.VersionKey]?.ToString() ?? throw new ArgumentException($"key={SQLiteCommandFactory.VersionKey}");
 

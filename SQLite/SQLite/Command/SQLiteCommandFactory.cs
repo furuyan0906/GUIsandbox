@@ -14,11 +14,11 @@ internal class SQLiteCommandFactory
 
     #endregion
 
-    public static string NameKey => nameof(SQLiteTableElement.Name).ToLowerInvariant();
+    public static string NameKey => nameof(TableElement.Name).ToLowerInvariant();
 
-    public static string ValueKey => nameof(SQLiteTableElement.Value).ToLowerInvariant();
+    public static string ValueKey => nameof(TableElement.Value).ToLowerInvariant();
 
-    public static string VersionKey => nameof(SQLiteTableElement.Version).ToLowerInvariant();
+    public static string VersionKey => nameof(TableElement.Version).ToLowerInvariant();
 
     #region Public Methods
 
@@ -48,7 +48,7 @@ internal class SQLiteCommandFactory
         return new SQLiteCommandWithQuery(commad);
     }
 
-    public SQLiteCommandWithoutQuery CreateDataInsertionCommnad(string tableName, IReadOnlyList<SQLiteTableElement> elements)
+    public SQLiteCommandWithoutQuery CreateDataInsertionCommnad(string tableName, IReadOnlyList<TableElement> elements)
     {
         tableName.ThrowArgumentExceptionIfNullOrEmptyOrWhiteSpace(nameof(tableName));
 

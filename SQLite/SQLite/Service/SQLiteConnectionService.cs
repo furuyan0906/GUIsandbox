@@ -44,7 +44,7 @@ public class SQLiteConnectionService
         this.connectionManager.ExecuteCommand(command);
     }
 
-    public IReadOnlyList<SQLiteTableElement> GetTable(string tableName)
+    public IReadOnlyList<TableElement> GetTable(string tableName)
     {
         var command = this.commandFactory.CreateTableReadCommnad(tableName);
         this.connectionManager.TryGetDataReader(command, out var reader);
@@ -54,7 +54,7 @@ public class SQLiteConnectionService
             throw new Exception(nameof(reader));
         }
 
-        var tableElements = new List<SQLiteTableElement>();
+        var tableElements = new List<TableElement>();
 
         // SQLiteDataReader.Disposeメソッドを確実に呼ぶため, usingステートメントでラッピングする
         using (reader)
@@ -65,7 +65,7 @@ public class SQLiteConnectionService
                 var value = reader[SQLiteCommandFactory.ValueKey]?.ToString() ?? throw new ArgumentException($"key={SQLiteCommandFactory.ValueKey}");
                 var version = reader[SQLiteCommandFactory.VersionKey]?.ToString() ?? throw new ArgumentException($"key={SQLiteCommandFactory.VersionKey}");
 
-                var tableElement = new SQLiteTableElement(name, int.Parse(value), new Version(version), new List<object>());
+                var tableElement = new TableElement(name, int.Parse(value), new Version(version), new List<object>());
                 tableElements.Add(tableElement);
             }
 
@@ -75,7 +75,7 @@ public class SQLiteConnectionService
         return tableElements.AsReadOnly();
     }
 
-    public void InsertIntoTable(string tableName, IReadOnlyList<SQLiteTableElement> elements)
+    public void InsertIntoTable(string tableName, IReadOnlyList<TableElement> elements)
     {
         var command = this.commandFactory.CreateDataInsertionCommnad(tableName, elements);
         this.connectionManager.ExecuteCommand(command);

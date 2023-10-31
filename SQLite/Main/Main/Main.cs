@@ -25,10 +25,10 @@ class MainProgram
 
         SQLiteConnectionService.CreateTable(tableName);
 
-        var elements = new List<SQLiteTableElement>(){};
+        var elements = new List<TableElement>(){};
         for (int i = 0; i < 1; ++i)
         {
-            elements.Add(new SQLiteTableElement($"Test{i:D3}", i, new Version(1, 0, i), new List<object>{}));
+            elements.Add(new TableElement($"Test{i:D3}", i, new Version(1, 0, i), new List<object>{}));
         }
 
         SQLiteConnectionService.InsertIntoTable(tableName, elements);

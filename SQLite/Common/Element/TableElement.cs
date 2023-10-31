@@ -4,11 +4,11 @@ using GUISandbox.DataBase.Common.Extensions;
 
 namespace GUISandbox.DataBase.Common.Element;
 
-public class SQLiteTableElement
+public class TableElement
 {
     #region Constructors
 
-    public SQLiteTableElement(string name, int value, Version version, IEnumerable<object> collection)
+    public TableElement(string name, int value, Version version, IEnumerable<object> collection)
     {
         name.ThrowArgumentExceptionIfNullOrEmptyOrWhiteSpace(nameof(name));
         value.ThrowArgumentExceptionIfNull(nameof(value));

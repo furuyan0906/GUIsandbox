@@ -1,8 +1,10 @@
-﻿using GUISandbox.SQLite.Extensions;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using GUISandbox.DataBase.Common.Element;
+using GUISandbox.DataBase.Common.Extensions;
+using GUISandbox.DataBase.SQLite.Command;
 
-namespace GUISandbox.SQLite.Service;
+namespace GUISandbox.DataBase.SQLite.Service;
 
 public class SQLiteConnectionService
 {

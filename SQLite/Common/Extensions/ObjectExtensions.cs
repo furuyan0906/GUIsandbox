@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
-using System.Security.Policy;
-using System.Web;
 
-namespace GUISandbox.SQLite.Extensions;
+namespace GUISandbox.DataBase.Common.Extensions;
 
-internal static class ObjectExtensions
+public static class ObjectExtensions
 {
     public static void ThrowArgumentExceptionIfNull<T>(this T obj, string parameter)
     {

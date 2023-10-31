@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using GUISandbox.SQLite.Extensions;
+using GUISandbox.DataBase.Common.Extensions;
 
-namespace GUISandbox.SQLite.Service;
+namespace GUISandbox.DataBase.Common.Element;
 
 public class SQLiteTableElement
 {

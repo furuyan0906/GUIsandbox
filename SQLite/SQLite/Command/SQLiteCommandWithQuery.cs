@@ -1,4 +1,4 @@
-﻿namespace GUISandbox.SQLite.Service;
+﻿namespace GUISandbox.DataBase.SQLite.Command;
 
 internal sealed class SQLiteCommandWithQuery : SQLiteCommandBase
 {

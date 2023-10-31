@@ -12,4 +12,9 @@
     <Folder Include="Constants\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj" />
+    <ProjectReference Include="..\SQLite\GUISandbox.SQLite.csproj" />
+  </ItemGroup>
+
 </Project>

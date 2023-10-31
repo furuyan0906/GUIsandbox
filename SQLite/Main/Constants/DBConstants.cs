@@ -1,6 +1,4 @@
-﻿using System.Security.Policy;
-
-namespace GUISandbox.SQLite.Constants;
+﻿namespace GUISandbox.DataBase.Main.Constants;
 
 internal static class SQLiteConstants
 {

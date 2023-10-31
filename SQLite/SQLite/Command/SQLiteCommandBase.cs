@@ -1,6 +1,6 @@
-﻿using GUISandbox.SQLite.Extensions;
+﻿using GUISandbox.DataBase.Common.Extensions;
 
-namespace GUISandbox.SQLite.Service;
+namespace GUISandbox.DataBase.SQLite.Command;
 
 internal abstract class SQLiteCommandBase
 {

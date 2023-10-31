@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Reflection;
-using GUISandbox.SQLite.Extensions;
+using GUISandbox.DataBase.Common.Element;
+using GUISandbox.DataBase.Common.Extensions;
 
-namespace GUISandbox.SQLite.Service;
+namespace GUISandbox.DataBase.SQLite.Command;
 
 internal class SQLiteCommandFactory
 {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
-using GUISandbox.SQLite.Constants;
+using GUISandbox.DataBase.SQLite.Command;
 
-namespace GUISandbox.SQLite.Service;
+namespace GUISandbox.DataBase.SQLite.Service;
 
 internal sealed class SQLiteConnectionManager : IDisposable
 {

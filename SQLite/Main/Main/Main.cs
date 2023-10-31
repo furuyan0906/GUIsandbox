@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Principal;
-using System.Threading;
-using GUISandbox.SQLite.Constants;
-using GUISandbox.SQLite.Service;
+﻿using GUISandbox.DataBase.Common.Element;
+using GUISandbox.DataBase.Main.Constants;
+using GUISandbox.DataBase.SQLite.Service;
 
-namespace GUISandbox.SQLite.Main;
+namespace GUISandbox.DataBase.Main;
 
 class MainProgram
 {
